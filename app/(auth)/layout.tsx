@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 // define font to use by layout
-const inter = Inter({subsets: ["latin"]})
+const inter = Inter({subsets: ["latin"]});
 
 export default function RootLayout({children}: {children: React.ReactNode}){
 	return (
