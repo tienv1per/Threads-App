@@ -13,9 +13,9 @@ import {Form,
   FormLabel,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { updateUser } from "@/lib/actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
 import { ThreadValidation } from "@/lib/validations/thread";
+import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
   user: {
@@ -41,9 +41,16 @@ const PostThread = ({ userId }: {userId: string}) => {
 		},
 	});
 
-	const onSubmit = async() => {
+	const onSubmit = async(values: z.infer<typeof ThreadValidation>) => {
 		// backend action
-		//await createThread();
+		await createThread({
+			text: values.thread,
+			author: userId,
+			communityId: null,
+			path: pathname
+		});
+
+		router.push("/");
 	};
 
   return (
