@@ -36,3 +36,34 @@ export async function createThread({
 		throw new Error(`Error creating thread ${error.message}`);
 	}
 };
+
+export async function fetchPosts(pageNumber=1, pageSize=20){
+	connectToDB();
+	// calculate number of posts to skip
+	const skipAmount = (pageNumber - 1) * pageSize;
+
+	// fetch posts have no parents (top-level threads)
+	const postsQuery = Thread.find({parentId: {$in: [null, undefined]}})
+		.sort({createdAt: 'desc'})
+		.skip(skipAmount)
+		.limit(pageSize)
+		.populate({path: 'author', model: User})
+		.populate({
+			path: 'children',
+			populate: {   // get id name image of comment of this post
+				path: 'author',
+				model: User,
+				select: "_id name parentId image"
+			}
+		});
+	
+		// get the total count of posts
+	const totalPostsCount = await Thread.countDocuments({ parentId: {$in: [null, undefined]}});
+
+	const posts = await postsQuery.exec();
+	
+	// check xem con` post khong de load 
+	const isNext = totalPostsCount > skipAmount + posts.length;
+
+	return { posts, isNext };
+};
