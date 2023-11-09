@@ -84,7 +84,6 @@ const PostThread = ({ userId }: {userId: string}) => {
 					Post Thread
 				</Button>
 			</form>
-
 		</Form>
   );
 };
