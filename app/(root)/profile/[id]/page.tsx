@@ -62,8 +62,9 @@ const Page = async({params}: ProfilePageProps) => {
 						}
 					</TabsList>
 					{
+						
 						profileTabs.map((tab) => (
-							<TabsContent key={`content-${tab.label}`} value={tab.label} className="w-full text-light-1">
+							<TabsContent key={`content-${tab.label}`} value={tab.value} className="w-full text-light-1">
 								<ThreadsTab
 									currentUserId={user.id}
 									accountId={userInfo.id}

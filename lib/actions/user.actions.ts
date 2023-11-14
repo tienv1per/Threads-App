@@ -62,7 +62,7 @@ export async function fetchUser(userId: string){
 
 export async function fetchUserPosts(userId: string){
 	try {
-		connectToDB();
+		await connectToDB();
 		// find all threads authored by user with given userId
 		// todo: populate community
 		const threads = await User.findOne({id: userId})
@@ -76,11 +76,11 @@ export async function fetchUserPosts(userId: string){
 						path: 'author',
 						model: User,
 						select: 'name image id'
-					}
-				}
+					},
+				},
 			});
 		
-			return threads;
+		return threads;
 	} catch (error: any) {
 		throw new Error(`Failed to fetcj user posts: ${error.message}`);
 	}
