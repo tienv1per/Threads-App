@@ -10,23 +10,23 @@ export const isBase64Image = (imageData: string) => {
   return base64Regex.test(imageData);
 }
 
-// export const formatDateString = (dateString: string) => {
-//   const options = Intl.DateTimeFormatOptions = {
-//     year: "numeric",
-//     month: "short",
-//     day: "numeric",
-//   };
+export const formatDateString = (dateString: string) => {
+  const options = Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
 
-//   const date = new Date(dateString);
-//   const formattedDate = date.toLocaleDateString(undefined, options);
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString(undefined, options);
 
-//   const time = date.toLocaleTimeString([], {
-//     hour: "numeric",
-//     minute: "2-digit",
-//   });
+  const time = date.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
 
-//   return `${time} - ${formattedDate}`;
-// }
+  return `${time} - ${formattedDate}`;
+}
 
 export function formatThreadCount(count: number): string {
   if (count === 0) {
